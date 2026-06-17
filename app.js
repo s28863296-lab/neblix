@@ -319,31 +319,19 @@ Math.round(
 );
         let riesgo = 0;
 
-// Humedad
-if (humedad >= 95) riesgo += 40;
-else if (humedad >= 90) riesgo += 30;
-else if (humedad >= 80) riesgo += 20;
+        if(humedad >= 70) riesgo += 20;
+        if(humedad >= 80) riesgo += 20;
+        if(humedad >= 90) riesgo += 20;
 
-// Temperatura
- if (temp <= 8) riesgo += 25;
-else if (temp <= 12) riesgo += 15;
+        if(viento < 15) riesgo += 10;
+        if(viento < 8) riesgo += 15;
 
-// Viento
-if (viento <= 5) riesgo += 20;
-else if (viento <= 10) riesgo += 10;
+        if(temp < 18) riesgo += 10;
+        if(temp < 12) riesgo += 15;
 
-// Visibilidad
-if (visibilidad <= 1000) riesgo += 15;
-
-// Hora del día
-const hora = new Date().getHours();
-
-if (hora >= 4 && hora <= 9) {
-    riesgo += 20;
-}
-
-// Limitar a 100%
-riesgo = Math.min(riesgo, 100);
+        if(riesgo > 100){
+            riesgo = 100;
+        }
 
         climaActual = {
             temp,
@@ -494,11 +482,6 @@ visibilidad + " m";
        document.getElementById("pronosticoManana").innerHTML =
 `Máx ${Math.round(data.daily.temperature_2m_max[1])}°C<br>Mín ${Math.round(data.daily.temperature_2m_min[1])}°C`;
 
-document.getElementById("amanecer").innerHTML =
-data.daily.sunrise[0].split("T")[1];
-
-document.getElementById("atardecer").innerHTML =
-data.daily.sunset[0].split("T")[1];
         // HORA PROBABLE DE NIEBLA
 
         let mejorHora = "--:--";
@@ -719,7 +702,7 @@ function cargarUsuario(){
     if(saludo){
 
         saludo.innerHTML =
-        `¡Hola ${nombre}! 👋`;
+`🌫️ Hola ${nombre}, soy Nebulax`;
 
     }
 
